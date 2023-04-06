@@ -65,7 +65,7 @@
                             </div>
                             <div class="col-md-6 col-sm-12 col-xs-12">
                                 <div class="detail-info">
-                                    <h2 class="title-detail">{{$product->name}}</h2>
+                                    <p style="font-size:30px;font-weight:bold"class="title-detail">{{ ucfirst($product->name) }}</p>
                                     <div class="product-detail-rating">
                                         <div class="pro-details-brand">
                                             <span> Brands: <a href="shop.html">Bootstrap</a></span>
