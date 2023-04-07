@@ -183,42 +183,22 @@
                                 <h5 class="widget-title mb-10">New products</h5>
                                 <div class="bt-1 border-color-1"></div>
                             </div>
+                            @foreach ($new_products as $new_product )
+
                             <div class="single-post clearfix">
                                 <div class="image">
-                                    <img src="{{asset('assets/imgs/shop/thumbnail-3.jpg') }}" alt="#">
+                                    <img src="{{asset('assets/imgs/shop/product-')}}{{$new_product->id}}-2.jpg" alt="{{$new_product->name}}">
                                 </div>
                                 <div class="content pt-10">
-                                    <h5><a href="product-details.html">Chen Cardigan</a></h5>
-                                    <p class="price mb-0 mt-5">$99.50</p>
+                                    <h5><a href="{{route('product.details',['slug'=>$new_product->slug]) }}">{{$new_product->name}}</a></h5>
+                                    <p class="price mb-0 mt-5">${{$new_product->regular_price}}</p>
                                     <div class="product-rate">
                                         <div class="product-rating" style="width:90%"></div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="single-post clearfix">
-                                <div class="image">
-                                    <img src="{{asset('assets/imgs/shop/thumbnail-4.jpg') }}" alt="#">
-                                </div>
-                                <div class="content pt-10">
-                                    <h6><a href="product-details.html">Chen Sweater</a></h6>
-                                    <p class="price mb-0 mt-5">$89.50</p>
-                                    <div class="product-rate">
-                                        <div class="product-rating" style="width:80%"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="single-post clearfix">
-                                <div class="image">
-                                    <img src="{{asset('assets/imgs/shop/thumbnail-5.jpg') }}" alt="#">
-                                </div>
-                                <div class="content pt-10">
-                                    <h6><a href="product-details.html">Colorful Jacket</a></h6>
-                                    <p class="price mb-0 mt-5">$25</p>
-                                    <div class="product-rate">
-                                        <div class="product-rating" style="width:60%"></div>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
+                            
                         </div>
                         <div class="banner-img wow fadeIn mb-45 animated d-lg-block d-none">
                             <img src="{{asset('assets/imgs/banner/banner-11.jpg') }}" alt="">
