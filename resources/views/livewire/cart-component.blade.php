@@ -14,6 +14,14 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="table-responsive">
+                            @if (Session::has('success_message'))
+                            <div class="alert alert-success" role="alert">
+                                <span class="success-icon">&#10004;</span> {{ session::get('success_message') }}
+                            </div>
+                         @endif
+                        
+                        
+                      @if (Cart::count() > 0)
                             <table class="table shopping-summery text-center clean">
                                 <thead>
                                     <tr class="main-heading">
@@ -26,14 +34,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if (Session::has('success_message'))
-                                    <div class="alert alert-success">
-                                           Success | {{ session::get('success_message') }}
-                                    </div>
-                                    </div>
-                                        
-                                    @endif
-                              @if (Cart::count() > 0)
                               @foreach (Cart::content() as $item )
                                     <tr>
                                         <td class="image product-thumbnail"><img src="{{asset('assets/imgs/shop/product-') }}{{$item->model->id}}-1.jpg" alt="#"></td>
@@ -45,27 +45,27 @@
                                         
                                         <td class="price" data-title="Price"><span>${{$item->model->regular_price}}</span></td>
                                         <td class="text-center" data-title="Stock">
-                                            <h1>{{$item->rowId}}</h1>
                                             <div class="detail-qty border radius  m-auto">
-                                                <a href="#decrese" class="qty-down" wire:click.prevent="decreaseQuantity('{{$item->rowId}}')"><i class="fi-rs-angle-small-down"></i></a>
+                                                <a href="#" class="qty-down" wire:click.prevent="decreaseQuantity('{{$item->rowId}}')"><i class="fi-rs-angle-small-down"></i></a>
                                                 <span class="qty-val">{{$item->qty}}</span>
-                                                <a href="#increse" class="qty-up" wire:click.prevent="increaseQuantity('{{$item->rowId}}')"><i class="fi-rs-angle-small-up"></i></a>
+                                                <a href="#" class="qty-up" wire:click.prevent="increaseQuantity('{{$item->rowId}}')"><i class="fi-rs-angle-small-up"></i></a>
                                             </div>
                                         </td>
                                         <td class="text-right" data-title="Cart">
                                             <span>${{$item->subtotal}}</span>
                                         </td>
-                                        <td class="action" data-title="Remove"><a href="#" class="text-muted"><i class="fi-rs-trash"></i></a></td>
+                                        <td class="action" data-title="Remove"><a href="#" class="text-muted" wire:click.prevent="removeItem('{{$item->rowId}}')"><i class="fi-rs-trash"></i></a></td>
                                     </tr>
                                     @endforeach
+                                    
+                                    <tr>
+                                        <td colspan="6" class="text-end">
+                                            <a href="#" class="text-muted" wire:click.prevent="clearItem()"> <i class="fi-rs-cross-small"></i> Clear Cart</a>
+                                        </td>
+                                    </tr>
                                     @else
                                     <p>No Item In Cart</p>
                                     @endif
-                                    <tr>
-                                        <td colspan="6" class="text-end">
-                                            <a href="#" class="text-muted"> <i class="fi-rs-cross-small"></i> Clear Cart</a>
-                                        </td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>

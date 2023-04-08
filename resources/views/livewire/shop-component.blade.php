@@ -90,12 +90,12 @@
                                             </span>
                                         </div>
                                         <div class="product-price">
-                                            <span>$238.85 </span>
-                                            <span class="old-price">{{$product->regular_price}}</span>
+                                            <span>$ {{$product->regular_price}}</span>
+                                            {{-- <span class="old-price"></span> --}}
                                         </div>
                                         <div class="product-action-1 show">
-                                            <a aria-label="Add To Cart" class="action-btn hover-up" href="shop-cart.php"><i class="fi-rs-shopping-bag-add"></i></a>
-                                        </div>
+                                            <a aria-label="Add To Cart" class="action-btn hover-up" wire:click.prevent="store({{ $product->id }},'{{ $product->name }}',{{ $product->regular_price }})" href="#" ><i class="fi-rs-shopping-bag-add"></i></a>
+                                        </div>                                                               
                                     </div>
                                 </div>
                             </div>

@@ -16,7 +16,6 @@ class ShopComponent extends Component
     public function store($product_id,$product_name,$product_price){
         
         Cart::add($product_id,$product_name,1,$product_price)->associate('App\Models\Product',1);
-        // dd(Cart::content());
         session()->flash('success_message', 'Item added to the cart!');
         return redirect()->route('shop.cart');
 
