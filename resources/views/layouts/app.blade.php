@@ -14,6 +14,7 @@
        <link rel="stylesheet" href="{{asset('assets/css/custom.css') }}">
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @livewireStyles()
     </head>
     <body >
         <div class="min-h-screen ">
@@ -735,5 +736,6 @@
     <!-- Template  JS -->
     <script src="{{asset('assets/js/main.js?v=3.3')}}"></script>
     <script src="{{asset('assets/js/shop.js?v=3.3')}}"></script>
+    @livewireScripts()
     </body>
 </html>
