@@ -8,13 +8,20 @@ use Livewire\Component;
 use App\Models\Category;
 use Livewire\WithPagination;
 
-class ShopComponent extends Component
+class SearchComponent extends Component
 {
     use WithPagination;
     public $pageSize = 9;
     public $orderBy="default sorting";
     public $min_value = 1;
     public $max_value = 1000;
+    public $q;
+    public $search_term;
+
+    public function mount(){
+        $this->fill(request()->only('q'));
+        $this->search_term='%'.$this->q.'%';
+    }
 
     //Adding product to the Cart Functionality Uing Pacakges
 
@@ -24,12 +31,6 @@ class ShopComponent extends Component
         session()->flash('success_message', 'Item added to the cart!');
         return redirect()->route('shop.cart');
 
-    }
-
-    //Add to Whishlist
-    public function addToWhishlist($product_id,$product_name,$product_price){
-        Cart::instance('whishlist')->add($product_id,$product_name,1,$product_price)->associate('App\Models\Product',1);
-        $this->emitTo('whishlist-icon-component','refreshComponent');
     }
 
     //changing page size
@@ -46,18 +47,18 @@ class ShopComponent extends Component
     public function render()
     {
         if($this->orderBy == 'Price: Low to High'){
-            $products=Product::whereBetween('regular_price',[$this->min_value,$this->max_value])->orderBy('regular_price','ASC')->paginate($this->pageSize);
+            $products=Product::where('name','like',$this->search_term)->whereBetween('regular_price',[$this->min_value,$this->max_value])->orderBy('regular_price','ASC')->paginate($this->pageSize);
         }
         elseif($this->orderBy == "Price: High to Low"){
-            $products=Product::whereBetween('regular_price',[$this->min_value,$this->max_value])->orderBy('regular_price','DESC')->paginate($this->pageSize);
+            $products=Product::where('name','like',$this->search_term)->whereBetween('regular_price',[$this->min_value,$this->max_value])->orderBy('regular_price','DESC')->paginate($this->pageSize);
 
         }
         elseif($this->orderBy == "Newest Arrival") {
-            $products=Product::whereBetween('regular_price',[$this->min_value,$this->max_value])->orderBy('created_at','DESC')->paginate($this->pageSize);
+            $products=Product::where('name','like',$this->search_term)->whereBetween('regular_price',[$this->min_value,$this->max_value])->orderBy('created_at','DESC')->paginate($this->pageSize);
 
         }
         else{
-            $products=Product::whereBetween('regular_price',[$this->min_value,$this->max_value])->paginate($this->pageSize);
+            $products=Product::where('name','like',$this->search_term)->whereBetween('regular_price',[$this->min_value,$this->max_value])->paginate($this->pageSize);
 
         }
 

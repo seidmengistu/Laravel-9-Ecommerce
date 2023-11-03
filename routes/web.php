@@ -1,14 +1,16 @@
 <?php
 
+use App\Models\Product;
 use App\Http\Livewire\CartComponent;
 use App\Http\Livewire\HomeComponent;
 use App\Http\Livewire\ShopComponent;
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\SearchComponent;
+use App\Http\Livewire\DetailsComponent;
+use App\Http\Livewire\CategoryComponent;
 use App\Http\Livewire\CheckoutComponent;
 use App\Http\Livewire\User\UserComponent;
 use App\Http\Livewire\Admin\AdminComponent;
-use App\Http\Livewire\DetailsComponent;
-use App\Models\Product;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +32,10 @@ Route::get('/shop',ShopComponent::class)->name('shop');
 Route::get('/product/{slug}',DetailsComponent::class)->name('product.details');
 Route::get('/cart',CartComponent::class)->name('shop.cart');
 Route::get('/checkout',CheckoutComponent::class)->name('shop.checkout');
+
+Route::get('/product-category/{slug}',CategoryComponent::class)->name('product.category');
+
+Route::get('/search',SearchComponent::class)->name('product.search');
 
 Route::middleware(['auth'])->group(function(){
      Route::get('/user/dashboard',UserComponent::class)->name('user.dashboard');

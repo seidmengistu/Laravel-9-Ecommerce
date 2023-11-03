@@ -1,20 +1,4 @@
 <div>
-    <style>
-        .nav svg{
-            height: 20px;
-        }
-        nav .hidden{
-            display: block;
-        } 
-        .whishlisted{
-            background-color: #F15412 !important;
-            border: 1px solid transparent !important;
-        }
-        .whishlisted i{
-            color:#ffffff !important
-        }
-    
-    </style>
     <main class="main">
         <div class="page-header breadcrumb-wrap">
             <div class="container">
@@ -30,7 +14,7 @@
                     <div class="col-lg-9">
                         <div class="shop-product-fillter">
                             <div class="totall-product">
-                                <p> We found <strong class="text-brand">{{ $products->total() }}</strong> items for you!</p>
+                                <p> We found <strong class="text-brand">{{ $products->total() }}</strong> items for you from <strong class="text-brand">{{ $category_name }}</strong> !</p>
                             </div>
                             <div class="sort-by-product-area">
                                 <div class="sort-by-cover mr-10">
@@ -63,19 +47,16 @@
                                     </div>
                                     <div class="sort-by-dropdown">
                                         <ul>
-                                            <li><a class="{{ $orderBy=="Default Sorting" ? 'active':''}}"  href="#" wire:click.prevent="orderBy('Default Sorting')">Default Sorting</a></li>
-                                            <li><a class="{{ $orderBy=="Price: Low to High" ? 'active':''}}"  href="#" wire:click.prevent="orderBy('Price: Low to High')">Price: Low to High</a></li>
-                                            <li><a class="{{ $orderBy=="Price: High to Low" ? 'active':''}}"  href="#" wire:click.prevent="orderBy('Price: High to Low')">Price: High to Low</a></li>
-                                            <li><a class="{{ $orderBy=="Newest Arrival" ? 'active':''}}"  href="#" wire:click.prevent="orderBy('Newest Arrival')">Newest Arrival</a></li>
+                                            <li><a class="{{ $orderBy=="Default Sorting" ? 'text-brand':''}}"  href="#" wire:click.prevent="orderBy('Default Sorting')">Default Sorting</a></li>
+                                            <li><a class="{{ $orderBy=="Price: Low to High" ? 'text-brand':''}}"  href="#" wire:click.prevent="orderBy('Price: Low to High')">Price: Low to High</a></li>
+                                            <li><a class="{{ $orderBy=="Price: High to Low" ? 'text-brand':''}}"  href="#" wire:click.prevent="orderBy('Price: High to Low')">Price: High to Low</a></li>
+                                            <li><a class="{{ $orderBy=="Newest Arrival" ? 'text-brand':''}}"  href="#" wire:click.prevent="orderBy('Newest Arrival')">Newest Arrival</a></li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row product-grid-3">
-                            @php
-                                $witems=Cart::instance('whishlist')->content()->pluck('id');
-                            @endphp
                             @foreach ($products as $product )
                             <div class="col-lg-4 col-md-4 col-6 col-sm-6">
                                 <div class="product-cart-wrap mb-30">
@@ -89,12 +70,8 @@
                                         <div class="product-action-1">
                                             <a aria-label="Quick view" class="action-btn hover-up" data-bs-toggle="modal" data-bs-target="#quickViewModal">
                                                 <i class="fi-rs-search"></i></a>
-                                             @if ($witems->contains($product->id))
-                                                <a aria-label="Add To Wishlist" class="action-btn hover-up whishlisted" href="#" ><i class="fi-rs-heart"></i></a>
-                                              @else
-                                              <a aria-label="Add To Wishlist" class="action-btn hover-up" href="#" wire:click.prevent="addToWhishlist({{ $product->id }},'{{ $product->name }}',{{ $product->regular_price }})"><i class="fi-rs-heart"></i></a>
-  
-                                              @endif                                            <a aria-label="Compare" class="action-btn hover-up" href="compare.php"><i class="fi-rs-shuffle"></i></a>
+                                            <a aria-label="Add To Wishlist" class="action-btn hover-up" href="wishlist.php"><i class="fi-rs-heart"></i></a>
+                                            <a aria-label="Compare" class="action-btn hover-up" href="compare.php"><i class="fi-rs-shuffle"></i></a>
                                         </div>
                                         <div class="product-badges product-badges-position product-badges-mrg">
                                             <span class="hot">Hot</span>
@@ -116,14 +93,7 @@
                                             {{-- <span class="old-price"></span> --}}
                                         </div>
                                         <div class="product-action-1 show">
-                                            @if ($witems->contains($product->id))
-                                              <a aria-label="Add To Wishlist" class="action-btn hover-up whishlisted" href="#" ><i class="fi-rs-heart"></i></a>
-                                            @else
-                                            <a aria-label="Add To Wishlist" class="action-btn hover-up" href="#" wire:click.prevent="addToWhishlist({{ $product->id }},'{{ $product->name }}',{{ $product->regular_price }})"><i class="fi-rs-heart"></i></a>
-
-                                            @endif
                                             <a aria-label="Add To Cart" class="action-btn hover-up" wire:click.prevent="store({{ $product->id }},'{{ $product->name }}',{{ $product->regular_price }})" href="#" ><i class="fi-rs-shopping-bag-add"></i></a>
-
                                         </div>                                                               
                                     </div>
                                 </div>
@@ -154,7 +124,7 @@
                             <h5 class="section-title style-1 mb-30 wow fadeIn animated">Category</h5>
                             <ul class="categories">
                             @foreach ($categories as $category )
-                              <li><a href="{{route('product.category',['slug'=>$category->slug])}}">{{ucfirst($category->name)}}</a></li>
+                              <li><a  href="{{route('product.category',['slug'=>$category->slug])}}">{{ucfirst($category->name)}}</a></li>
                             @endforeach
                                 
                             </ul>
@@ -162,7 +132,7 @@
                         <!-- Fillter By Price -->
                         <div class="sidebar-widget price_range range mb-30">
                             <div class="widget-header position-relative mb-20 pb-10">
-                                <h5 class="widget-title mb-10">Filter by price</h5>
+                                <h5 class="widget-title mb-10">Fill by price</h5>
                                 <div class="bt-1 border-color-1"></div>
                             </div>
                             <div class="price-filter">
@@ -240,6 +210,7 @@
         </section>
     </main>
 </div>
+
 @push('scripts')
 <script>
     var sliderrange = $('#slider-range');

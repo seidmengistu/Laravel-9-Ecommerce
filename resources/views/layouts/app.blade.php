@@ -75,22 +75,13 @@
                     <div class="container">
                         <div class="header-wrap">
                             <div class="logo logo-width-1">
-                                <a href="index.html"><img src="assets/imgs/logo/logo.png" alt="logo"></a>
+                                <a href="index.html"><img src="../assets/imgs/logo/logo.png" alt="logo"></a>
                             </div>
                             <div class="header-right">
-                                <div class="search-style-1">
-                                    <form action="#">                                
-                                        <input type="text" placeholder="Search for items...">
-                                    </form>
-                                </div>
+                                @livewire('header-search-component')
                                 <div class="header-action-right">
                                     <div class="header-action-2">
-                                        <div class="header-action-icon-2">
-                                            <a href="shop-wishlist.php">
-                                                <img class="svgInject" alt="Surfside Media" src="assets/imgs/theme/icons/icon-heart.svg">
-                                                <span class="pro-count blue">4</span>
-                                            </a>
-                                        </div>
+                                       @livewire('whishlist-icon-component')
                                        @livewire('cart-icon-component')
                                     </div>
                                 </div>
@@ -605,7 +596,8 @@
                                     <strong>Email: </strong>contact@surfsidemedia.in
                                 </p>
                                 <h5 class="mb-10 mt-30 fw-600 text-grey-4 wow fadeIn animated">Follow Us</h5>
-                                <div class="mobile-social-icon wow fadeIn animated mb-sm-5 mb-md-0">
+                               
+                                <div class="mobile-social-icon  wow fadeIn animated mb-sm-5 mb-md-0">
                                     <a href="#"><img src="assets/imgs/theme/icons/icon-facebook.svg" alt=""></a>
                                     <a href="#"><img src="assets/imgs/theme/icons/icon-twitter.svg" alt=""></a>
                                     <a href="#"><img src="assets/imgs/theme/icons/icon-instagram.svg" alt=""></a>
@@ -695,5 +687,6 @@
     <script src="{{asset('assets/js/main.js?v=3.3')}}"></script>
     <script src="{{asset('assets/js/shop.js?v=3.3')}}"></script>
     @livewireScripts()
+    @stack('scripts')
     </body>
 </html>
